@@ -7,7 +7,7 @@ export class Card {
     }
     
     public get value() : string {
-        return `[${this.ranks} ${this.sults}]`
+        return `[${this.ranks} ${this.sults}],`
     }
     
 }

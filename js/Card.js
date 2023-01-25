@@ -7,7 +7,7 @@ class Card {
         this.sults = sults;
     }
     get value() {
-        return `[${this.ranks} ${this.sults}]`;
+        return `[${this.ranks} ${this.sults}],`;
     }
 }
 exports.Card = Card;
