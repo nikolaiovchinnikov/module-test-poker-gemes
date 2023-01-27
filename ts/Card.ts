@@ -1,9 +1,11 @@
-export class Card {
+export default class Card {
     public ranks :string;
     public sults :string;
-    constructor (ranks:string,sults:string) {
+    public points:number;
+    constructor (ranks:string,sults:string,points:number) {
         this.ranks = ranks
         this.sults = sults
+        this.points = points
     }
     
     public get value() : string {

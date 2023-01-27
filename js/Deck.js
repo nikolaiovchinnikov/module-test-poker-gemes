@@ -1,16 +1,20 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Deck = void 0;
 const _ = require('lodash');
-const Card_1 = require("./Card");
+// import  as  from 'lodash';
+const Card_1 = __importDefault(require("./Card"));
+const POINTS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 const RANKS = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 const SUITS = ["♠", "♥", "♦", "♣"];
 class Deck {
     constructor() {
         this.deck = [];
-        RANKS.forEach(ranks => {
+        RANKS.forEach((ranks, i) => {
             SUITS.forEach(sults => {
-                this.deck.push(new Card_1.Card(ranks, sults));
+                this.deck.push(new Card_1.default(ranks, sults, POINTS[i]));
             });
         });
     }
@@ -25,5 +29,5 @@ class Deck {
         return card;
     }
 }
-exports.Deck = Deck;
+exports.default = Deck;
 //# sourceMappingURL=Deck.js.map

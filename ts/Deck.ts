@@ -1,14 +1,15 @@
 const _ = require('lodash');
-import { Card } from "./Card";
-
+// import  as  from 'lodash';
+import  Card  from "./Card";
+const POINTS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 const RANKS = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
 const SUITS = ["♠", "♥", "♦", "♣"]
-export class  Deck {
+export default class  Deck {
     public deck: Card[] = []
     constructor () {
-        RANKS.forEach(ranks => {
+        RANKS.forEach((ranks,i) => {
             SUITS.forEach(sults => {
-                this.deck.push(new Card(ranks,sults))
+                this.deck.push(new Card(ranks,sults,POINTS[i]))
             });
         });
     }

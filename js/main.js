@@ -31,15 +31,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Deck_1 = require("./Deck");
-const Hand_1 = require("./Hand");
+const Deck_1 = __importDefault(require("./Deck"));
+const Hand_1 = __importDefault(require("./Hand"));
 const readline = __importStar(require("node:readline/promises"));
 const node_process_1 = require("node:process");
+const Checker_1 = __importDefault(require("./Checker"));
 class Application {
     constructor() {
-        this.deck = new Deck_1.Deck();
-        this.hand = new Hand_1.Hand();
+        this.deck = new Deck_1.default();
+        this.hand = new Hand_1.default();
+        this.checker = new Checker_1.default();
     }
     start() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -50,21 +55,28 @@ class Application {
             while (true) {
                 let gemeUserCards = this.hand.showAllCards();
                 let isReplaceCard = (yield this.inputUser(gemeUserCards)).split(" ");
-                this.replese(isReplaceCard);
-                console.log(this.deck.deck.length);
+                if (isReplaceCard[0] !== "") {
+                    console.log(isReplaceCard);
+                    this.replese(isReplaceCard);
+                }
+                else {
+                    this.checker.checkCard(this.hand);
+                }
+                // закончить цикл при количестве оставшихся кард
+                // реализовать подсчет очков
             }
         });
     }
     inputUser(cards) {
         return __awaiter(this, void 0, void 0, function* () {
             const rl = readline.createInterface({ input: node_process_1.stdin, output: node_process_1.stdout });
-            const answer = yield rl.question(cards + "\nХотите заменить карты? \n1 = да\n2 = нет");
+            const answer = yield rl.question(cards + "\nХотите заменить карты? \nВведите через пробел '№'\n");
             rl.close();
             return yield answer;
         });
     }
     getNewDeck() {
-        this.deck = new Deck_1.Deck();
+        this.deck = new Deck_1.default();
     }
     toGiveCardFive(caunt) {
         for (let i = 0; i < caunt; i++) {
@@ -80,6 +92,7 @@ class Application {
         return true;
     }
     replese(listIndex) {
+        // реализовать проверку на корректность ввода
         listIndex.forEach(indexStr => {
             let card = this.deck.takeCard();
             if (card) {
@@ -88,6 +101,5 @@ class Application {
         });
     }
 }
-const app = new Application();
-app.start();
+new Application().start();
 //# sourceMappingURL=main.js.map

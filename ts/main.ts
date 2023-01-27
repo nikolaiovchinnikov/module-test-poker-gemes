@@ -1,17 +1,19 @@
-import { Deck } from "./Deck";
-import { Hand } from "./Hand";
+import  Deck  from "./Deck";
+import  Hand  from "./Hand";
 import * as readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
-
+import  Checker  from "./Checker";
 
 
 
 class Application {
     private deck:Deck
     private hand:Hand
+    private checker:Checker 
     constructor () {
         this.deck = new Deck()
         this.hand = new Hand()
+        this.checker = new Checker()
     }
 
 
@@ -22,15 +24,26 @@ class Application {
         while(true){
             let gemeUserCards:string = this.hand.showAllCards()
             let isReplaceCard:string[] = (await this.inputUser(gemeUserCards)).split(" ")
-            this.replese( isReplaceCard ) 
-            console.log(this.deck.deck.length)
+            if( isReplaceCard[0] !== "" ){
+                console.log(isReplaceCard)
+                this.replese( isReplaceCard ) 
+            }else {
+                this.checker.checkCard(this.hand)
+            }
+            
+            
+           
+            // закончить цикл при количестве оставшихся кард
+            // реализовать подсчет очков
+
+
         }
     }
 
 
     public async inputUser (cards:string) {
         const rl = readline.createInterface({ input, output });
-        const answer = await rl.question(cards + "\nХотите заменить карты? \n1 = да\n2 = нет");
+        const answer = await rl.question(cards + "\nХотите заменить карты? \nВведите через пробел '№'\n");
         rl.close();
         return await answer
     }
@@ -52,6 +65,7 @@ class Application {
         }return true
     }
     private replese ( listIndex:string[]) {
+        // реализовать проверку на корректность ввода
         listIndex.forEach(indexStr => {
             let card = this.deck.takeCard()
             if(card) {
@@ -64,7 +78,7 @@ class Application {
 
 
 
-const app = new Application()
-app.start();
+new Application().start()
+
 
 

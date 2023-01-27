@@ -1,5 +1,5 @@
-import { Card } from "./Card";
-export class Hand {
+import  Card  from "./Card";
+export default class Hand {
     public deckListGeme: Card[] = [];
     public appendHendCard (item:Card) {
         this.deckListGeme.push(item);
